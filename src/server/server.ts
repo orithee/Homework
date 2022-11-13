@@ -1,7 +1,8 @@
 import express, { json, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { join } from 'path';
-import { mongooseConnect, mongooseFun } from '../db/mongoose';
+import { mongooseConnect } from '../db/mongoose';
+import socketFunc from './SocketIO';
 
 dotenv.config({ path: join(__dirname, '../../.env') });
 
@@ -14,15 +15,14 @@ init();
 async function init() {
   try {
     await mongooseConnect();
-    await loadServer();
+    // await loadServer();
+    socketFunc();
   } catch (error) {
     console.log('init error: ', error);
   }
 }
 
 async function loadServer() {
-  mongooseFun().catch((err) => console.log(err));
-
   // Get requests:
   server.get('/----', async (req: Request, res: Response) => {
     //   console.log('request ' + req.params.name...);

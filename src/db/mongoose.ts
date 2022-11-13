@@ -9,27 +9,61 @@ const uri = `mongodb+srv://${key}@cluster0.lpv2zne.mongodb.net/MoveoProject?retr
 export async function mongooseConnect() {
   try {
     await mongoose.connect(uri);
+    // mongooseInit().catch((err) => console.log(err));
+    // createSession().catch((err) => console.log(err));
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function mongooseFun() {
-  const friendsSchema = new mongoose.Schema({
-    name: String,
-    finalName: String,
+async function createSession() {
+  const SessionSchema = new mongoose.Schema({
+    uuid: String,
+    user_name: String,
+    codeblock_id: Number,
   });
 
-  const friendsModel = mongoose.model('friends', friendsSchema);
-  await friendsModel.insertMany([{ name: 'ori5' }, { name: 'ori6' }]);
-  //   const oriFriend = await new friendsModel({ name: 'ori', ott: 'de' }).save();
-  //   console.log(oriFriend.name); // 'ori'
+  const SessionModel = mongoose.model('session', SessionSchema);
+  await new SessionModel({
+    uuid: 'ee72839h3191',
+    user_name: '339827231',
+    codeblock_id: 0,
+  }).save();
 
-  //   const fluffy = new friendsModel({ name: 'yoni' });
+  const session = await SessionModel.find();
 
-  //   await fluffy.save();
+  const CodeBlockSchema = new mongoose.Schema({
+    title: String,
+    code: String,
+  });
 
-  const allFriends = await friendsModel.find();
-  console.log(allFriends[1].finalName);
-  console.log(allFriends[1].name);
+  const CodeBlockModel = mongoose.model('code-block', CodeBlockSchema);
+  await new CodeBlockModel({ title: 'Async functions', code: '......' }).save();
+
+  const codeBlock = await CodeBlockModel.find();
+}
+
+async function mongooseInit() {
+  const MentorSchema = new mongoose.Schema({
+    name: String,
+    password: String,
+  });
+
+  const MentorModel = mongoose.model('mentors', MentorSchema);
+  await new MentorModel({ name: 'Tom', password: '339827231' }).save();
+
+  const mentors = await MentorModel.find();
+
+  const StudentsSchema = new mongoose.Schema({
+    name: String,
+    password: String,
+  });
+
+  const StudentsModel = mongoose.model('students', StudentsSchema);
+  await new StudentsModel({ name: 'Josh', password: '119836532' }).save();
+
+  const students = await StudentsModel.find();
+
+  console.log(students[0]);
+  console.log(mentors[0]);
 }
