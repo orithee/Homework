@@ -2,3 +2,25 @@ export type signInForm = {
   name: FormDataEntryValue | null;
   password: FormDataEntryValue | null;
 };
+
+export interface Mentor {
+  isStudent: boolean;
+  name: FormDataEntryValue | null;
+}
+
+export interface Student {
+  isStudent: boolean;
+  name: FormDataEntryValue | null;
+}
+
+export interface updateUserLoggedAction {
+  payload: Mentor | Student | undefined;
+  type: string;
+}
+
+export interface Cards {
+  title: string;
+  description: string;
+  code: string;
+  id: number;
+}

@@ -8,17 +8,21 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import SimpleBackdrop from './SimpleBackdrop';
 import { signInForm } from '../helpers/types';
+import { useDispatch } from 'react-redux';
+import { updateUserLogged } from '../redux/globalSlice';
 
 const theme = createTheme();
 
 export default function SignIn() {
+  const { uuid } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [error, setError] = useState<Boolean>(false);
   const [backdrop, setBackdrop] = useState<Boolean>(false);
 
@@ -31,11 +35,19 @@ export default function SignIn() {
   };
 
   const checkSignIn = async (formData: signInForm) => {
+    console.log(uuid);
     try {
       const res = await axios.post('/signIn', formData);
       if (res.data) {
-        if (res.data.success) navigate('/Dashboard');
-        else setError(true);
+        if (res.data.success) {
+          dispatch(
+            updateUserLogged({
+              isStudent: res.data.student,
+              name: formData.name,
+            })
+          );
+          navigate('/Dashboard');
+        } else setError(true);
         setBackdrop(false);
       }
     } catch (error) {
@@ -89,7 +101,7 @@ export default function SignIn() {
             {error && (
               <Alert severity="error">
                 <AlertTitle>
-                  <strong>Login failed... try again</strong>
+                  <strong>wrong user / password... try again</strong>
                 </AlertTitle>
               </Alert>
             )}
