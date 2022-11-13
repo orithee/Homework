@@ -15,6 +15,12 @@ import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems } from './MainListItems';
+import { useSelector } from 'react-redux';
+import { globalState } from '../redux/store';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import CodeCard from './CodeCard';
+import CardsContainer from './CardsContainer';
 
 const drawerWidth: number = 240;
 
@@ -69,10 +75,13 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+  const [open, setOpen] = React.useState(false);
+  const user = useSelector((state: globalState) => state.global.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user === undefined) navigate('/');
+  }, []);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -88,7 +97,7 @@ function DashboardContent() {
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              onClick={toggleDrawer}
+              onClick={() => setOpen(!open)}
               sx={{
                 marginRight: '36px',
                 ...(open && { display: 'none' }),
@@ -103,7 +112,23 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              User / Mentor
+              {user ? user.name?.toString() : '---'}
+            </Typography>
+            {user && !user.isStudent && (
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                sx={{ flexGrow: 1 }}
+              >
+                Choose code block:
+              </Typography>
+            )}
+            <Typography component="h1" variant="h6" color="inherit">
+              {user?.isStudent && 'Student'}
+              {user === undefined && '---'}
+              {user?.isStudent === false && 'Mentor'}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -116,51 +141,14 @@ function DashboardContent() {
               px: [1],
             }}
           >
-            <IconButton onClick={toggleDrawer}>
+            <IconButton onClick={() => setOpen(!open)}>
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
           <Divider />
           <List component="nav">{mainListItems}</List>
         </Drawer>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                ></Paper>
-              </Grid>
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                ></Paper>
-              </Grid>
-            </Grid>
-          </Container>
-        </Box>
+        <CardsContainer />
       </Box>
     </ThemeProvider>
   );
