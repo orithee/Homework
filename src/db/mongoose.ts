@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { join } from 'path';
-import { MentorModel, StudentsModel } from './models';
+import { CodeBlockModel, MentorModel, StudentsModel } from './models';
 dotenv.config({ path: join(__dirname, '../../.env') });
 
 const key = process.env.MONGO_DB_KEY;
@@ -10,10 +10,24 @@ const uri = `mongodb+srv://${key}@cluster0.lpv2zne.mongodb.net/MoveoProject?retr
 export async function mongooseConnect() {
   try {
     await mongoose.connect(uri);
-    // mongooseInit().catch((err) => console.log(err));
-    // createSession().catch((err) => console.log(err));
+    //await mongooseInit()
+    // await createSession();
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function getCards() {
+  try {
+    const codeBlocks = await CodeBlockModel.find(
+      {},
+      'title description code id -_id'
+    );
+    console.log(codeBlocks);
+    return codeBlocks;
+  } catch (error) {
+    console.log(error);
+    return [];
   }
 }
 
@@ -31,30 +45,37 @@ export async function checkSignIn(name: string, password: string) {
 }
 
 async function createSession() {
-  const SessionSchema = new mongoose.Schema({
-    uuid: String,
-    user_name: String,
-    codeblock_id: Number,
-  });
+  // await new SessionModel({
+  //   uuid: 'ee72839h3191',
+  //   user_name: '339827231',
+  //   codeblock_id: 0,
+  // }).save();
 
-  const SessionModel = mongoose.model('session', SessionSchema);
-  await new SessionModel({
-    uuid: 'ee72839h3191',
-    user_name: '339827231',
-    codeblock_id: 0,
+  // const session = await SessionModel.find();
+
+  await new CodeBlockModel({
+    title: 'Async functions',
+    description: 'assss',
+    code: '......',
+    id: 1,
   }).save();
 
-  const session = await SessionModel.find();
+  await new CodeBlockModel({
+    title: 'Dynamic imports',
+    description: 'dvdvdvdvd',
+    code: '......',
+    id: 2,
+  }).save();
 
-  const CodeBlockSchema = new mongoose.Schema({
-    title: String,
-    code: String,
-  });
-
-  const CodeBlockModel = mongoose.model('code-block', CodeBlockSchema);
-  await new CodeBlockModel({ title: 'Async functions', code: '......' }).save();
+  await new CodeBlockModel({
+    title: 'Syntax',
+    description: 'dvdvdvdvd',
+    code: '......',
+    id: 3,
+  }).save();
 
   const codeBlock = await CodeBlockModel.find();
+  console.log(codeBlock);
 }
 
 async function mongooseInit() {

@@ -1,7 +1,7 @@
 import express, { json, Request, Response } from 'express';
 
 import { Server } from 'socket.io';
-import { checkSignIn } from '../db/mongoose';
+import { checkSignIn, getCards } from '../db/mongoose';
 import { connection } from './types';
 
 const PORT = process.env.PORT;
@@ -12,9 +12,20 @@ const server = express()
     const data = await checkSignIn(req.body.name, req.body.password);
     res.send({ success: data.success, student: data.student });
   })
-  .use((req, res) =>
-    res.sendFile(req.path || '/index.html', { root: './dist' })
-  )
+  .get('/student_login/:uuid', (req, res) => {
+    console.log('uuid: ' + req.params.uuid);
+    res.send('helo');
+
+    res.sendFile('/index.html', { root: './dist' });
+  })
+  .get('/code-cards', async (req, res) => {
+    const data = await getCards();
+    res.send({ cards: data });
+  })
+  .use((req, res) => {
+    console.log(req.path);
+    res.sendFile(req.path || '/index.html', { root: './dist' });
+  })
   .listen(PORT, () => console.log(`http://localhost:4000`));
 
 export default function socketFunc() {
