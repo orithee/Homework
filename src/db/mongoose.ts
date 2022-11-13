@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { join } from 'path';
+import { MentorModel, StudentsModel } from './models';
 dotenv.config({ path: join(__dirname, '../../.env') });
 
 const key = process.env.MONGO_DB_KEY;
@@ -14,6 +15,19 @@ export async function mongooseConnect() {
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function checkSignIn(name: string, password: string) {
+  const student = await StudentsModel.findOne({
+    name: name,
+    password: password,
+  });
+  if (student) return { success: true, student: true };
+
+  const mentor = await MentorModel.findOne({ name: name, password: password });
+  if (mentor) return { success: true, student: false };
+
+  return { success: false, student: false };
 }
 
 async function createSession() {
