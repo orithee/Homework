@@ -3,20 +3,14 @@ import { useState } from 'react';
 import style from './App.module.scss';
 import Dashboard from './components/Dashboard';
 import socketConnection from './helpers/SocketIO';
-import axios from 'axios';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SignIn from './components/SignIn';
 
 const connection = socketConnection();
 export const socketContext = React.createContext<any>(connection);
 
 function App() {
   const [socket, setSocket] = useState<any>(connection);
-
-  axios
-    .get('/hello')
-    .catch(console.log)
-    .then((obj) => {
-      if (obj) console.log(obj.data);
-    });
 
   socket.on('time', () => {
     console.log('interval socket from server');
@@ -27,10 +21,17 @@ function App() {
   });
 
   return (
-    <Dashboard />
-    // <div className={style}>
-    //   <div>hello world</div>
-    // </div>
+    <socketContext.Provider value={socket}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/Dashboard" element={<Dashboard />}></Route>
+          <Route path="/" element={<SignIn />}></Route>
+          {/* <Route path="/session" element={<Main />}>
+            <Route path=":sessionId" element={<Chat />} />
+          </Route> */}
+        </Routes>
+      </BrowserRouter>
+    </socketContext.Provider>
   );
 }
 
