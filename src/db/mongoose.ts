@@ -1,7 +1,13 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { join } from 'path';
-import { CodeBlockModel, MentorModel, StudentsModel } from './models';
+import {
+  CodeBlockModel,
+  MentorModel,
+  SessionModel,
+  StudentsModel,
+} from './models';
+import { v4 as uuidv4 } from 'uuid';
 dotenv.config({ path: join(__dirname, '../../.env') });
 
 const key = process.env.MONGO_DB_KEY;
@@ -10,6 +16,7 @@ const uri = `mongodb+srv://${key}@cluster0.lpv2zne.mongodb.net/MoveoProject?retr
 export async function mongooseConnect() {
   try {
     await mongoose.connect(uri);
+    // await createStudent();
     //await mongooseInit()
     // await createSession();
   } catch (error) {
@@ -31,6 +38,17 @@ export async function getCards() {
   }
 }
 
+export async function getStudents() {
+  try {
+    const students = await StudentsModel.find({}, 'name -_id');
+    console.log(students);
+    return students;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
 export async function checkSignIn(name: string, password: string) {
   const student = await StudentsModel.findOne({
     name: name,
@@ -44,15 +62,23 @@ export async function checkSignIn(name: string, password: string) {
   return { success: false, student: false };
 }
 
+export async function newSession(name: string, id: number) {
+  try {
+    const uuid = uuidv4();
+    await new SessionModel({
+      uuid: uuid,
+      student_name: name,
+      codeblock_id: id,
+    }).save();
+
+    console.log(uuid);
+    return uuid;
+  } catch (error) {
+    return '';
+  }
+}
+
 async function createSession() {
-  // await new SessionModel({
-  //   uuid: 'ee72839h3191',
-  //   user_name: '339827231',
-  //   codeblock_id: 0,
-  // }).save();
-
-  // const session = await SessionModel.find();
-
   await new CodeBlockModel({
     title: 'Async functions',
     description: 'assss',
@@ -78,6 +104,20 @@ async function createSession() {
   console.log(codeBlock);
 }
 
+async function createStudent() {
+  await new StudentsModel({
+    name: 'Ron',
+    password: '229837422',
+  }).save();
+
+  await new StudentsModel({
+    name: 'Or',
+    password: '110984762',
+  }).save();
+
+  const codeBlock = await StudentsModel.find();
+  console.log(codeBlock);
+}
 async function mongooseInit() {
   const MentorSchema = new mongoose.Schema({
     name: String,

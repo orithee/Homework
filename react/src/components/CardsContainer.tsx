@@ -6,9 +6,11 @@ import { Cards } from '../helpers/types';
 import { globalState } from '../redux/store';
 import CodeCard from './CodeCard';
 import OpenBlockCode from './OpenBlockCode';
+import BasicModal from './BasicModal';
 
 export default function CardsContainer() {
   const [cards, setCards] = useState<Cards[]>();
+  const [openSession, setOpenSession] = useState<boolean | number>(false);
   const codeOpen = useSelector((state: globalState) => state.global.codeOpen);
 
   useEffect(() => {
@@ -49,12 +51,19 @@ export default function CardsContainer() {
                       title={card.title}
                       description={card.description}
                       blockId={card.id}
+                      setOpenSession={setOpenSession}
                     />
                   );
                 })}
             </Grid>
           ) : (
             <OpenBlockCode />
+          )}
+          {typeof openSession === 'number' && (
+            <BasicModal
+              setOpenSession={setOpenSession}
+              sessionId={openSession}
+            />
           )}
         </Container>
       </Box>

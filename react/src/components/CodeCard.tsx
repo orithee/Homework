@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@mui/material';
+import { Grid, Link, Paper } from '@mui/material';
 import { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
@@ -7,14 +7,15 @@ interface props {
   title: string;
   description: string;
   blockId: number;
+  setOpenSession: Function;
 }
 
-export default function CodeCard({ title, description, blockId }: props) {
-  const [open, setOpen] = useState(true);
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+export default function CodeCard({
+  title,
+  description,
+  blockId,
+  setOpenSession,
+}: props) {
   return (
     <>
       <Grid item xs={12} md={4} lg={4}>
@@ -30,12 +31,13 @@ export default function CodeCard({ title, description, blockId }: props) {
           <Typography component="p" variant="h6" sx={{ flex: 1 }}>
             {description}
           </Typography>
-          <Typography color="text.secondary" sx={{ flex: 1 }}>
-            {/* {description} */}
-          </Typography>
-          <Typography color="text.secondary" sx={{ flex: 1 }}>
-            create a session here
-          </Typography>
+          <Link
+            color="primary"
+            onClick={() => setOpenSession(blockId)}
+            sx={{ mt: 3, cursor: 'pointer' }}
+          >
+            Create a session
+          </Link>
         </Paper>
       </Grid>
     </>
