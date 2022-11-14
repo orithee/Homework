@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -30,7 +30,11 @@ export default function SignIn() {
     setBackdrop(true);
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const formData = { name: form.get('name'), password: form.get('password') };
+    const formData = {
+      name: form.get('name'),
+      password: form.get('password'),
+      uuid: uuid,
+    };
     checkSignIn(formData);
   };
 

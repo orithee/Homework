@@ -34,7 +34,7 @@ export default function StudentsList({ sessionId, setOpenSession }: Props) {
       if (res.data) {
         console.log('res.data.success', res.data.uuid);
         const host = 'http://' + window.location.host;
-        const mentorLink = host + '/mentor';
+        const mentorLink = host + '/access/mentor';
         const studentLink = host + '/student_login/' + res.data.uuid;
         console.log('mentorLink:');
         console.log(mentorLink);

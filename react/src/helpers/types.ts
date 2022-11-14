@@ -1,6 +1,7 @@
 export type signInForm = {
   name: FormDataEntryValue | null;
   password: FormDataEntryValue | null;
+  uuid: string | undefined;
 };
 
 export interface Mentor {

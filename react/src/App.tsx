@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard';
 import socketConnection from './helpers/SocketIO';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignIn from './components/SignIn';
+import CheckCookie from './components/CheckCookie';
 
 const connection = socketConnection();
 export const socketContext = React.createContext<any>(connection);
@@ -26,6 +27,9 @@ function App() {
         <Routes>
           <Route path="/Dashboard" element={<Dashboard />}></Route>
           <Route path="/CodeEditor" element={<Dashboard />}></Route>
+          <Route path="/access" element={<CheckCookie />}>
+            <Route path=":mentor" />
+          </Route>
           <Route path="/student_login" element={<SignIn />}>
             <Route path=":uuid" />
           </Route>

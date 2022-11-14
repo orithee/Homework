@@ -30,7 +30,7 @@ export async function getCards() {
       {},
       'title description code id -_id'
     );
-    console.log(codeBlocks);
+    // console.log(codeBlocks);
     return codeBlocks;
   } catch (error) {
     console.log(error);
@@ -41,7 +41,7 @@ export async function getCards() {
 export async function getStudents() {
   try {
     const students = await StudentsModel.find({}, 'name -_id');
-    console.log(students);
+    // console.log(students);
     return students;
   } catch (error) {
     console.log(error);
@@ -62,6 +62,19 @@ export async function checkSignIn(name: string, password: string) {
   return { success: false, student: false };
 }
 
+export async function checkUuid(uuid: string, name: string) {
+  const ans = await SessionModel.findOne({ student_name: name, uuid: uuid });
+  if (ans && ans.student_name) return true;
+  else return false;
+}
+
+export async function checkMentorCookie(uuid: string) {
+  const ans = await SessionModel.findOne({ uuid: uuid });
+  // console.log('checkMentorCookie ans', ans);
+  if (ans && ans.uuid) return true;
+  else return false;
+}
+
 export async function newSession(name: string, id: number) {
   try {
     const uuid = uuidv4();
@@ -71,7 +84,7 @@ export async function newSession(name: string, id: number) {
       codeblock_id: id,
     }).save();
 
-    console.log(uuid);
+    console.log('newSession', uuid);
     return uuid;
   } catch (error) {
     return '';

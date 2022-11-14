@@ -14,7 +14,6 @@ import { globalState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import CardsContainer from './CardsContainer';
-import OpenBlockCode from './OpenBlockCode';
 import { Divider, List } from '@mui/material';
 import { mainListItems } from './MainListItems';
 
