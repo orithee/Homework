@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { UpdateLinks } from '../redux/globalSlice';
 import { globalState } from '../redux/store';
-import SimpleBackdrop from './SimpleBackdrop';
-import Title from './Title';
+import SimpleBackdrop from './utilities/SimpleBackdrop';
+import Title from './utilities/Title';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -23,7 +23,7 @@ const style = {
   p: 4,
 };
 
-export default function CurrSession() {
+export default function CurrentSession() {
   const links = useSelector((state: globalState) => state.global.sessionLinks);
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();

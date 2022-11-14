@@ -12,7 +12,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import SimpleBackdrop from './SimpleBackdrop';
+import SimpleBackdrop from './utilities/SimpleBackdrop';
 import { signInForm } from '../helpers/types';
 import { useDispatch } from 'react-redux';
 import { ChangeCodeOpen, updateUserLogged } from '../redux/globalSlice';

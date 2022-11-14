@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux';
 import { Cards } from '../helpers/types';
 import { globalState } from '../redux/store';
 import CodeCard from './CodeCard';
-import OpenBlockCode from './OpenBlockCode';
-import BasicModal from './BasicModal';
-import CurrSession from './CurrSession';
+import OpenBlockCode from './utilities/OpenBlockCode';
+import BasicModal from './utilities/BasicModal';
+import CurrentSession from './CurrentSession';
 
 export default function CardsContainer() {
   const [cards, setCards] = useState<Cards[]>();
@@ -66,7 +66,7 @@ export default function CardsContainer() {
               sessionId={openSession}
             />
           )}
-          {links.mentor && links.student && <CurrSession />}
+          {links.mentor && links.student && <CurrentSession />}
         </Container>
       </Box>
     </>

@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import StudentsList from './StudentsList';
+import StudentsList from '../StudentsList';
 
 const style = {
   position: 'absolute' as 'absolute',

@@ -5,8 +5,8 @@ import { socketContext } from '../App';
 import { useSelector } from 'react-redux';
 import { globalState } from '../redux/store';
 import axios from 'axios';
-import Smile from './Smile';
-import SimpleBackdrop from './SimpleBackdrop';
+import Smile from './utilities/Smile';
+import SimpleBackdrop from './utilities/SimpleBackdrop';
 
 interface Props {
   readOnly: boolean;
@@ -26,6 +26,7 @@ export default function Editor(props: Props) {
       setText(msg);
     });
   }
+
   useEffect(() => {
     if (!props.readOnly) socket.emit('code change', text);
     if (text && text === solution) {

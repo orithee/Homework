@@ -1,8 +1,7 @@
 import { Grid, Paper } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { globalState } from '../redux/store';
-import Editor from './Editor';
+import { globalState } from '../../redux/store';
+import Editor from '../Editor';
 
 export default function OpenBlockCode() {
   const user = useSelector((state: globalState) => state.global.user);

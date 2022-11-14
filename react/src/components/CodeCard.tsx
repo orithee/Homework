@@ -1,7 +1,6 @@
 import { Grid, Link, Paper } from '@mui/material';
-import { useState } from 'react';
 import Typography from '@mui/material/Typography';
-import Title from './Title';
+import Title from './utilities/Title';
 
 interface props {
   title: string;

@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import CardsContainer from './CardsContainer';
 import { Divider, List } from '@mui/material';
-import { mainListItems } from './MainListItems';
+import { mainListItems } from './utilities/MainListItems';
 
 const drawerWidth: number = 240;
 
