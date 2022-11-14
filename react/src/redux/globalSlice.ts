@@ -1,12 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Mentor, Student, updateUserLoggedAction } from '../helpers/types';
+import {
+  Mentor,
+  Student,
+  updateCodeOpenStatus,
+  updateUserLoggedAction,
+} from '../helpers/types';
 
 export interface GlobalInterface {
   user: Mentor | Student | undefined;
+  codeOpen: boolean;
 }
 
 const initialState: GlobalInterface = {
   user: undefined,
+  codeOpen: false,
 };
 
 export const globalSlice = createSlice({
@@ -17,9 +24,14 @@ export const globalSlice = createSlice({
     updateUserLogged: (state, action: updateUserLoggedAction) => {
       state.user = action.payload;
     },
+
+    // Change the app status:
+    ChangeCodeOpen: (state, action: updateCodeOpenStatus) => {
+      state.codeOpen = action.payload;
+    },
   },
 });
 
-export const { updateUserLogged } = globalSlice.actions;
+export const { updateUserLogged, ChangeCodeOpen } = globalSlice.actions;
 
 export default globalSlice.reducer;

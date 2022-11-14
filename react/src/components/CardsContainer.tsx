@@ -1,17 +1,15 @@
 import { Box, Container, Grid, Paper, Toolbar } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Cards } from '../helpers/types';
+import { globalState } from '../redux/store';
 import CodeCard from './CodeCard';
-
-interface props {
-  title: string;
-  description: string;
-  blockId: number;
-}
+import OpenBlockCode from './OpenBlockCode';
 
 export default function CardsContainer() {
   const [cards, setCards] = useState<Cards[]>();
+  const codeOpen = useSelector((state: globalState) => state.global.codeOpen);
 
   useEffect(() => {
     fetchCodeCards();
@@ -41,19 +39,23 @@ export default function CardsContainer() {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={5}>
-            {cards &&
-              cards.map((card) => {
-                return (
-                  <CodeCard
-                    key={card.id}
-                    title={card.title}
-                    description={card.description}
-                    blockId={card.id}
-                  />
-                );
-              })}
-          </Grid>
+          {!codeOpen ? (
+            <Grid container spacing={5}>
+              {cards &&
+                cards.map((card) => {
+                  return (
+                    <CodeCard
+                      key={card.id}
+                      title={card.title}
+                      description={card.description}
+                      blockId={card.id}
+                    />
+                  );
+                })}
+            </Grid>
+          ) : (
+            <OpenBlockCode />
+          )}
         </Container>
       </Box>
     </>

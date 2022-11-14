@@ -15,7 +15,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import SimpleBackdrop from './SimpleBackdrop';
 import { signInForm } from '../helpers/types';
 import { useDispatch } from 'react-redux';
-import { updateUserLogged } from '../redux/globalSlice';
+import { ChangeCodeOpen, updateUserLogged } from '../redux/globalSlice';
 
 const theme = createTheme();
 
@@ -46,7 +46,10 @@ export default function SignIn() {
               name: formData.name,
             })
           );
-          navigate('/Dashboard');
+          if (res.data.student) {
+            dispatch(ChangeCodeOpen(true));
+            navigate('/CodeEditor');
+          } else navigate('/Dashboard');
         } else setError(true);
         setBackdrop(false);
       }

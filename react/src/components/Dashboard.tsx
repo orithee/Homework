@@ -5,22 +5,18 @@ import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { mainListItems } from './MainListItems';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from 'react-redux';
 import { globalState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import CodeCard from './CodeCard';
 import CardsContainer from './CardsContainer';
+import OpenBlockCode from './OpenBlockCode';
+import { Divider, List } from '@mui/material';
+import { mainListItems } from './MainListItems';
 
 const drawerWidth: number = 240;
 
@@ -77,6 +73,8 @@ const mdTheme = createTheme();
 function DashboardContent() {
   const [open, setOpen] = React.useState(false);
   const user = useSelector((state: globalState) => state.global.user);
+  const codeOpen = useSelector((state: globalState) => state.global.codeOpen);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -88,23 +86,21 @@ function DashboardContent() {
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={() => setOpen(!open)}
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
+          <Toolbar sx={{ pr: '24px' }}>
+            {!codeOpen && (
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={() => setOpen(!open)}
+                sx={{
+                  marginRight: '36px',
+                  ...(open && { display: 'none' }),
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
             <Typography
               component="h1"
               variant="h6"
@@ -114,7 +110,7 @@ function DashboardContent() {
             >
               {user ? user.name?.toString() : '---'}
             </Typography>
-            {user && !user.isStudent && (
+            {user && (
               <Typography
                 component="h1"
                 variant="h6"
@@ -122,7 +118,9 @@ function DashboardContent() {
                 noWrap
                 sx={{ flexGrow: 1 }}
               >
-                Choose code block:
+                {user.isStudent && 'task name'}
+                {!user.isStudent &&
+                  (!codeOpen ? 'Choose code block:' : 'task name')}
               </Typography>
             )}
             <Typography component="h1" variant="h6" color="inherit">
@@ -132,22 +130,24 @@ function DashboardContent() {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <IconButton onClick={() => setOpen(!open)}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">{mainListItems}</List>
-        </Drawer>
+        {!codeOpen && (
+          <Drawer variant="permanent" open={open}>
+            <Toolbar
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                px: [1],
+              }}
+            >
+              <IconButton onClick={() => setOpen(!open)}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Toolbar>
+            <Divider />
+            <List component="nav">{mainListItems}</List>
+          </Drawer>
+        )}
         <CardsContainer />
       </Box>
     </ThemeProvider>

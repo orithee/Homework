@@ -18,6 +18,11 @@ export interface updateUserLoggedAction {
   type: string;
 }
 
+export interface updateCodeOpenStatus {
+  payload: boolean;
+  type: string;
+}
+
 export interface Cards {
   title: string;
   description: string;
