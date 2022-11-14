@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@codemirror/lang-javascript": "^6.1.1",
+    "@codemirror/lang-markdown": "^6.0.5",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.9",

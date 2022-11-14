@@ -30,3 +30,5 @@ export interface Cards {
   code: string;
   id: number;
 }
+
+// export type socket = Socket<DefaultEventsMap, DefaultEventsMap>;

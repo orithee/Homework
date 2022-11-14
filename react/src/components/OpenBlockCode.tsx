@@ -1,14 +1,11 @@
 import { Grid, Paper } from '@mui/material';
-import { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Title from './Title';
-import CodeEditor from './CodeEditor';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { globalState } from '../redux/store';
+import Editor from './Editor';
 
 export default function OpenBlockCode() {
-  const [open, setOpen] = useState(true);
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const user = useSelector((state: globalState) => state.global.user);
 
   return (
     <>
@@ -22,7 +19,7 @@ export default function OpenBlockCode() {
             maxHeight: '70%',
           }}
         >
-          <CodeEditor />
+          <Editor readOnly={user?.isStudent ? false : true} />
         </Paper>
       </Grid>
     </>

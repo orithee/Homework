@@ -55,15 +55,12 @@ const server = express()
 
 export default function socketFunc() {
   const io = new Server(server);
-
-  io.on('connection', (socket: connection) => {
-    // console.log('Client connected');
-    // console.log(socket.id);
-    // socket.emit('
-    // socket.on('disconnect', () => console.log('Client disconnected'));
+  io.on('connection', (socket: any) => {
+    socket.on('code change', (msg: any) => {
+      console.log('code change from the student: ', msg);
+      io.emit('code change', msg);
+    });
+    socket.on('disconnect', () => console.log('Client disconnected'));
   });
-
-  // setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
-  // setInterval(() => io.emit('time2', new Date().toTimeString()), 500);
   return io;
 }
