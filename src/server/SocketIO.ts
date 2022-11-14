@@ -6,10 +6,11 @@ import {
   checkSignIn,
   checkUuid,
   getCards,
+  getCurrentCodeBlock,
   getStudents,
   newSession,
 } from '../db/mongoose';
-import { connection } from './types';
+import fs from 'fs';
 
 const PORT = process.env.PORT;
 
@@ -30,14 +31,33 @@ const server = express()
       maxAge: 900000,
       httpOnly: true,
     });
-    res.send({ uuid: uuid });
+    let nodeEnv = 'https://';
+    if (process.env.NODE_ENV !== 'production') nodeEnv = 'http://';
+    res.send({ uuid: uuid, nodeEnv: nodeEnv });
   })
   .get('/student_login/:uuid', (req, res) => {
     res.sendFile('/index.html', { root: './dist' });
   })
+  .get('/code-block/:uuid', async (req, res) => {
+    try {
+      const obj = await getCurrentCodeBlock(req.params.uuid);
+      res.send(obj);
+    } catch (error) {
+      console.log('/code-block/:uuid', error);
+      res.send({});
+    }
+  })
+  .get('/access/mentor', cookieParser(), async (req, res) => {
+    res.sendFile('/index.html', { root: './dist' });
+  })
   .get('/mentor-access', cookieParser(), async (req, res) => {
-    const access = await checkMentorCookie(req.cookies['session']);
-    res.send({ access: access });
+    try {
+      const access = await checkMentorCookie(req.cookies['session']);
+      res.send({ access: access, uuid: req.cookies['session'] });
+    } catch (error) {
+      console.log('/mentor-access', error);
+      res.send({ access: false, uuid: '' });
+    }
   })
   .get('/code-cards', async (req, res) => {
     const data = await getCards();
@@ -48,16 +68,21 @@ const server = express()
     res.send({ students: data });
   })
   .use((req, res) => {
-    console.log(req.path);
-    res.sendFile(req.path || '/index.html', { root: './dist' });
+    try {
+      res.sendFile(req.path || '/index.html', { root: './dist' });
+    } catch (error) {
+      console.log('no such file');
+      console.log(req.path);
+    }
   })
+
   .listen(PORT, () => console.log(`http://localhost:4000`));
 
 export default function socketFunc() {
   const io = new Server(server);
   io.on('connection', (socket: any) => {
     socket.on('code change', (msg: any) => {
-      console.log('code change from the student: ', msg);
+      console.log('code change from the student:..... ');
       io.emit('code change', msg);
     });
     socket.on('disconnect', () => console.log('Client disconnected'));
