@@ -5,6 +5,8 @@ import { socketContext } from '../App';
 import { useSelector } from 'react-redux';
 import { globalState } from '../redux/store';
 import axios from 'axios';
+import Smile from './Smile';
+import SimpleBackdrop from './SimpleBackdrop';
 
 interface Props {
   readOnly: boolean;
@@ -13,6 +15,10 @@ interface Props {
 export default function Editor(props: Props) {
   const socket = useContext<any>(socketContext);
   const [text, setText] = useState<string>('');
+  const [solution, setSolution] = useState<string>('');
+  const [success, setSuccess] = useState<boolean>(false);
+  const [loader, setLoader] = useState<boolean>(false);
+
   const codeOpen = useSelector((state: globalState) => state.global.codeOpen);
 
   if (props.readOnly) {
@@ -22,9 +28,14 @@ export default function Editor(props: Props) {
   }
   useEffect(() => {
     if (!props.readOnly) socket.emit('code change', text);
+    if (text && text === solution) {
+      setText(text + '\n\n\n\n Well done !!!!');
+      setSuccess(true);
+    }
   }, [text]);
 
   useEffect(() => {
+    setLoader(true);
     getCurrentBlock();
   }, []);
 
@@ -33,18 +44,22 @@ export default function Editor(props: Props) {
     if (res.data) {
       console.log(res.data);
       setText(res.data.code || '---');
-      // setText(res.data.students);
+      setSolution(res.data.solution || '---');
+      setLoader(false);
     }
   };
 
   return (
-    <>
+    <div style={{ overflow: 'auto' }}>
+      {success ? <Smile /> : ''}
+      {loader && <SimpleBackdrop />}
+
       <CodeMirror
         value={text}
         extensions={[javascript()]}
         readOnly={props.readOnly}
         onChange={(value) => setText(value)}
       />
-    </>
+    </div>
   );
 }

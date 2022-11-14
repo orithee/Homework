@@ -117,7 +117,7 @@ function DashboardContent() {
                 noWrap
                 sx={{ flexGrow: 1 }}
               >
-                {user.isStudent && 'task name'}
+                {user.isStudent && 'Code Block'}
                 {!user.isStudent &&
                   (!codeOpen ? 'Choose code block:' : 'Code Block')}
               </Typography>

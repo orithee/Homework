@@ -12,7 +12,12 @@ export const socketContext = React.createContext<any>(connection);
 
 function App() {
   const [socket, setSocket] = useState<any>(connection);
-  // disconnected socket
+
+  socket.on('disconnect', () => {
+    setSocket(socketConnection());
+    console.log('disconnect');
+  });
+
   return (
     <socketContext.Provider value={socket}>
       <BrowserRouter>
