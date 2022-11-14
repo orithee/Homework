@@ -18,13 +18,13 @@ export default function CodeCard({
 }: props) {
   return (
     <>
-      <Grid item xs={12} md={4} lg={4}>
+      <Grid item xs={12} md={8} lg={4}>
         <Paper
           sx={{
             p: 2,
             display: 'flex',
             flexDirection: 'column',
-            height: 220,
+            height: 'auto',
           }}
         >
           <Title>{title}</Title>

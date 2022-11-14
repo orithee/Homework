@@ -119,7 +119,7 @@ function DashboardContent() {
               >
                 {user.isStudent && 'task name'}
                 {!user.isStudent &&
-                  (!codeOpen ? 'Choose code block:' : 'task name')}
+                  (!codeOpen ? 'Choose code block:' : 'Code Block')}
               </Typography>
             )}
             <Typography component="h1" variant="h6" color="inherit">

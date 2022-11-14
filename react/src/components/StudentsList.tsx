@@ -21,7 +21,6 @@ export default function StudentsList({ sessionId, setOpenSession }: Props) {
   const fetchStudents = async () => {
     const res = await axios.get('/students');
     if (res.data) {
-      console.log(res.data.students);
       setStudents(res.data.students);
     }
   };
@@ -32,8 +31,7 @@ export default function StudentsList({ sessionId, setOpenSession }: Props) {
     try {
       const res = await axios.post('/new-session', sessionData);
       if (res.data) {
-        console.log('res.data.success', res.data.uuid);
-        const host = 'http://' + window.location.host;
+        const host = res.data.nodeEnv + window.location.host;
         const mentorLink = host + '/access/mentor';
         const studentLink = host + '/student_login/' + res.data.uuid;
         console.log('mentorLink:');

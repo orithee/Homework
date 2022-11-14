@@ -39,7 +39,6 @@ export default function SignIn() {
   };
 
   const checkSignIn = async (formData: signInForm) => {
-    console.log(uuid);
     try {
       const res = await axios.post('/signIn', formData);
       if (res.data) {
@@ -51,7 +50,8 @@ export default function SignIn() {
             })
           );
           if (res.data.student) {
-            dispatch(ChangeCodeOpen(true));
+            // dispatch(ChangeCodeOpen(true));
+            dispatch(ChangeCodeOpen(uuid || ''));
             navigate('/CodeEditor');
           } else navigate('/Dashboard');
         } else setError(true);

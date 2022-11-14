@@ -20,7 +20,6 @@ export default function CardsContainer() {
   const fetchCodeCards = async () => {
     const res = await axios.get('/code-cards');
     if (res.data) {
-      console.log(res.data.cards);
       setCards(res.data.cards);
     }
   };

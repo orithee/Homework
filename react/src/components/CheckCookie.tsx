@@ -23,7 +23,8 @@ export default function CheckCookie() {
           name: 'Tom',
         })
       );
-      dispatch(ChangeCodeOpen(true));
+      // dispatch(ChangeCodeOpen(true));
+      dispatch(ChangeCodeOpen(res.data.uuid));
       setLoader(false);
       navigate('/CodeEditor');
     } else navigate('/');

@@ -8,12 +8,12 @@ import {
 
 export interface GlobalInterface {
   user: Mentor | Student | undefined;
-  codeOpen: boolean;
+  codeOpen: string;
 }
 
 const initialState: GlobalInterface = {
   user: undefined,
-  codeOpen: false,
+  codeOpen: '',
 };
 
 export const globalSlice = createSlice({

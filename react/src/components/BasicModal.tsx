@@ -21,9 +21,6 @@ interface Props {
 }
 
 export default function BasicModal({ sessionId, setOpenSession }: Props) {
-  // const [open, setOpen] = React.useState(true);
-  // const handleClose = () => setOpen(false);
-
   return (
     <div>
       <Modal

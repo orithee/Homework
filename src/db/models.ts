@@ -20,6 +20,7 @@ const CodeBlockSchema = new mongoose.Schema({
   title: String,
   description: String,
   code: String,
+  solution: String,
   id: Number,
 });
 

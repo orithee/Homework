@@ -20,7 +20,7 @@ export interface updateUserLoggedAction {
 }
 
 export interface updateCodeOpenStatus {
-  payload: boolean;
+  payload: string;
   type: string;
 }
 

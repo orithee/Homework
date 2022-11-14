@@ -12,15 +12,7 @@ export const socketContext = React.createContext<any>(connection);
 
 function App() {
   const [socket, setSocket] = useState<any>(connection);
-
-  socket.on('time', () => {
-    console.log('interval socket from server');
-  });
-
-  socket.on('time2', () => {
-    console.log('interval2 socket from server');
-  });
-
+  // disconnected socket
   return (
     <socketContext.Provider value={socket}>
       <BrowserRouter>
