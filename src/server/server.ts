@@ -1,14 +1,12 @@
-import express, { json, Request, Response } from 'express';
-import dotenv from 'dotenv';
 import { mongooseConnect } from '../db/mongoose';
-import socketFunc from './SocketIO';
+import socketServer from './socket';
 
 init();
 
 async function init() {
   try {
     mongooseConnect();
-    socketFunc();
+    socketServer();
   } catch (error) {
     console.log('init error: ', error);
   }
