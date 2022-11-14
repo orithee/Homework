@@ -85,7 +85,7 @@ export default function socketServer() {
   const io = new Server(expressServer());
   io.on('connection', (socket: any) => {
     socket.on('code change', (msg: any) => {
-      console.log('code change from the student:..... ');
+      // console.log('code change from the student:..... ');
       io.emit('code change', msg);
     });
     socket.on('disconnect', () => console.log('Client disconnected'));

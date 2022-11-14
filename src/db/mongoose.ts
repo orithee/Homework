@@ -39,7 +39,6 @@ export async function getCurrentCodeBlock(uuidStr: string) {
 }
 // Delete all sessions:
 export async function deleteSession() {
-  console.log('deleteSession');
   try {
     const res = await SessionModel.deleteMany();
     return true;
@@ -54,7 +53,6 @@ export async function getAllCodeBlocks() {
   try {
     const params = 'title description solution code id -_id';
     const codeBlocks = await CodeBlockModel.find({}, params);
-    console.log(codeBlocks);
     return codeBlocks;
   } catch (error) {
     console.log(error);
@@ -66,7 +64,6 @@ export async function getAllCodeBlocks() {
 export async function getAllStudents() {
   try {
     const students = await StudentsModel.find({}, 'name -_id');
-    console.log(students);
     return students;
   } catch (error) {
     console.log(error);
