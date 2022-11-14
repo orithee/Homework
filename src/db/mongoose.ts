@@ -46,6 +46,18 @@ export async function getCurrentCodeBlock(uuidStr: string) {
   }
 }
 
+export async function deleteSession() {
+  console.log('deleteSession');
+  try {
+    const res = await SessionModel.deleteMany();
+    console.log('res', res);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
 export async function getCards() {
   try {
     const codeBlocks = await CodeBlockModel.find(

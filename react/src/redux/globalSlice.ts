@@ -1,19 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   Mentor,
+  SessionLinks,
   Student,
   updateCodeOpenStatus,
+  updateCurrentLinks,
   updateUserLoggedAction,
 } from '../helpers/types';
 
 export interface GlobalInterface {
   user: Mentor | Student | undefined;
   codeOpen: string;
+  sessionLinks: SessionLinks;
 }
 
 const initialState: GlobalInterface = {
   user: undefined,
   codeOpen: '',
+  sessionLinks: { student: '', mentor: '' },
 };
 
 export const globalSlice = createSlice({
@@ -29,9 +33,15 @@ export const globalSlice = createSlice({
     ChangeCodeOpen: (state, action: updateCodeOpenStatus) => {
       state.codeOpen = action.payload;
     },
+
+    // Update the current session links:
+    UpdateLinks: (state, action: updateCurrentLinks) => {
+      state.sessionLinks = action.payload;
+    },
   },
 });
 
-export const { updateUserLogged, ChangeCodeOpen } = globalSlice.actions;
+export const { updateUserLogged, ChangeCodeOpen, UpdateLinks } =
+  globalSlice.actions;
 
 export default globalSlice.reducer;

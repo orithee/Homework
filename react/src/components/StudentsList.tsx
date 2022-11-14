@@ -4,6 +4,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { UpdateLinks } from '../redux/globalSlice';
 
 interface Props {
   sessionId: number;
@@ -12,6 +14,7 @@ interface Props {
 
 export default function StudentsList({ sessionId, setOpenSession }: Props) {
   const [students, setStudents] = useState<{ name: string }[]>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchStudents();
@@ -33,6 +36,7 @@ export default function StudentsList({ sessionId, setOpenSession }: Props) {
         const host = res.data.nodeEnv + window.location.host;
         const mentorLink = host + '/access/mentor';
         const studentLink = host + '/student_login/' + res.data.uuid;
+        dispatch(UpdateLinks({ student: studentLink, mentor: mentorLink }));
         console.log('mentorLink:');
         console.log(mentorLink);
         console.log('studentLink:');

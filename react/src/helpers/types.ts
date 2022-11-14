@@ -24,6 +24,13 @@ export interface updateCodeOpenStatus {
   type: string;
 }
 
+export interface updateCurrentLinks {
+  payload: { student: string; mentor: string };
+  type: string;
+}
+
+export type SessionLinks = { student: string; mentor: string };
+
 export interface Cards {
   title: string;
   description: string;

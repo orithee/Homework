@@ -5,6 +5,7 @@ import {
   checkMentorCookie,
   checkSignIn,
   checkUuid,
+  deleteSession,
   getCards,
   getCurrentCodeBlock,
   getStudents,
@@ -24,6 +25,10 @@ const server = express()
       } else if (!data.student) res.send({ success: true, student: false });
       else res.send({ success: false, student: true });
     } else res.send({ success: false, student: false });
+  })
+  .put('/delete-session', async (req, res) => {
+    const success = await deleteSession();
+    res.send({ success: success });
   })
   .post('/new-session', async (req, res) => {
     const uuid = await newSession(req.body.name, req.body.sessionId);

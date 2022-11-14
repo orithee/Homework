@@ -7,11 +7,13 @@ import { globalState } from '../redux/store';
 import CodeCard from './CodeCard';
 import OpenBlockCode from './OpenBlockCode';
 import BasicModal from './BasicModal';
+import CurrSession from './CurrSession';
 
 export default function CardsContainer() {
   const [cards, setCards] = useState<Cards[]>();
   const [openSession, setOpenSession] = useState<boolean | number>(false);
   const codeOpen = useSelector((state: globalState) => state.global.codeOpen);
+  const links = useSelector((state: globalState) => state.global.sessionLinks);
 
   useEffect(() => {
     fetchCodeCards();
@@ -64,6 +66,7 @@ export default function CardsContainer() {
               sessionId={openSession}
             />
           )}
+          {links.mentor && links.student && <CurrSession />}
         </Container>
       </Box>
     </>
