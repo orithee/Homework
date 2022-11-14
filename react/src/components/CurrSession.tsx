@@ -40,10 +40,6 @@ export default function CurrSession() {
     }
   };
 
-  useEffect(() => {
-    // fetchStudents();
-  }, []);
-
   return (
     <div>
       <Modal

@@ -6,9 +6,9 @@ import {
   checkSignIn,
   checkUuid,
   deleteSession,
-  getCards,
+  getAllCodeBlocks,
   getCurrentCodeBlock,
-  getStudents,
+  getAllStudents,
   newSession,
 } from '../db/mongoose';
 import fs from 'fs';
@@ -32,10 +32,7 @@ const server = express()
   })
   .post('/new-session', async (req, res) => {
     const uuid = await newSession(req.body.name, req.body.sessionId);
-    res.cookie('session', uuid, {
-      maxAge: 900000,
-      httpOnly: true,
-    });
+    res.cookie('session', uuid, { maxAge: 900000, httpOnly: true });
     let nodeEnv = 'https://';
     if (process.env.NODE_ENV !== 'production') nodeEnv = 'http://';
     res.send({ uuid: uuid, nodeEnv: nodeEnv });
@@ -65,11 +62,11 @@ const server = express()
     }
   })
   .get('/code-cards', async (req, res) => {
-    const data = await getCards();
+    const data = await getAllCodeBlocks();
     res.send({ cards: data });
   })
   .get('/students', async (req, res) => {
-    const data = await getStudents();
+    const data = await getAllStudents();
     res.send({ students: data });
   })
   .use((req, res) => {

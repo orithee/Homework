@@ -41,22 +41,21 @@ export default function SignIn() {
   const checkSignIn = async (formData: signInForm) => {
     try {
       const res = await axios.post('/signIn', formData);
-      if (res.data) {
-        if (res.data.success) {
-          dispatch(
-            updateUserLogged({
-              isStudent: res.data.student,
-              name: formData.name,
-            })
-          );
-          if (res.data.student) {
-            // dispatch(ChangeCodeOpen(true));
-            dispatch(ChangeCodeOpen(uuid || ''));
-            navigate('/CodeEditor');
-          } else navigate('/Dashboard');
+      if (res.data && res.data.success) {
+        const user = {
+          isStudent: res.data.student,
+          name: formData.name,
+        };
+        if (!res.data.student && !uuid) {
+          dispatch(updateUserLogged(user));
+          navigate('/Dashboard');
+        } else if (res.data.student) {
+          dispatch(updateUserLogged(user));
+          dispatch(ChangeCodeOpen(uuid || ''));
+          navigate('/CodeEditor');
         } else setError(true);
-        setBackdrop(false);
-      }
+      } else setError(true);
+      setBackdrop(false);
     } catch (error) {
       console.log(error);
       setBackdrop(false);

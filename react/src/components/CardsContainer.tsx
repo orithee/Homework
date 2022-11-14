@@ -45,10 +45,10 @@ export default function CardsContainer() {
           {!codeOpen ? (
             <Grid container spacing={5}>
               {cards &&
-                cards.map((card) => {
+                cards.map((card, index) => {
                   return (
                     <CodeCard
-                      key={card.id}
+                      key={index}
                       title={card.title}
                       description={card.description}
                       blockId={card.id}

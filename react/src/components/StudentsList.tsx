@@ -28,19 +28,14 @@ export default function StudentsList({ sessionId, setOpenSession }: Props) {
   };
 
   const createSession = async (student: string) => {
-    console.log('session created', student, sessionId);
-    const sessionData = { name: student, sessionId: sessionId };
     try {
+      const sessionData = { name: student, sessionId: sessionId };
       const res = await axios.post('/new-session', sessionData);
       if (res.data) {
         const host = res.data.nodeEnv + window.location.host;
         const mentorLink = host + '/access/mentor';
         const studentLink = host + '/student_login/' + res.data.uuid;
         dispatch(UpdateLinks({ student: studentLink, mentor: mentorLink }));
-        console.log('mentorLink:');
-        console.log(mentorLink);
-        console.log('studentLink:');
-        console.log(studentLink);
       }
     } catch (error) {}
     setOpenSession(false);
