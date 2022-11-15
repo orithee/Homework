@@ -3,10 +3,9 @@ import socketServer from './socket';
 
 init();
 
-async function init() {
+function init() {
   try {
-    mongooseConnect();
-    socketServer();
+    mongooseConnect().then(() => socketServer());
   } catch (error) {
     console.log('init error: ', error);
   }
