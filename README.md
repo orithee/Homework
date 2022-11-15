@@ -7,7 +7,8 @@ The complete instructions are attached in one of the pictures below.
 
 #
 
-Link to the website:
+## Link to the website:
+
 <a href="https://homework-project-ori.herokuapp.com/" target="_blank">https://homework-project-ori.herokuapp.com</a>
 
 ## At the main entrance only the mentor can enter:
@@ -28,13 +29,11 @@ Password : 110984762
 
 #
 
-Short review videos about the project:
+## Short review videos about the project:
 
-#
+User interface(2:06): <a href="https://youtu.be/pDVz5QXO7yQ" target="_blank">click here</a>
 
-User interface(2:27): <a href="https://youtu.be/UPEfUqqB-Pk" target="_blank">click here</a>
-
-Code structure(3:42): <a href="https://youtu.be/A9gnOBq70m8" target="_blank">click here</a>
+Code structure(3:44): <a href="https://youtu.be/ba2ndx-QAw8" target="_blank">click here</a>
 
 #
 
@@ -52,7 +51,7 @@ Code structure(3:42): <a href="https://youtu.be/A9gnOBq70m8" target="_blank">cli
 
 #
 
-## instructions of the project:
+## Instructions of the project:
 
 #
 
