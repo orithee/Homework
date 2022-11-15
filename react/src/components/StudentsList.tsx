@@ -12,6 +12,7 @@ interface Props {
   setOpenSession: Function;
 }
 
+// A component that displays the students list:
 export default function StudentsList({ sessionId, setOpenSession }: Props) {
   const [students, setStudents] = useState<{ name: string }[]>();
   const dispatch = useDispatch();

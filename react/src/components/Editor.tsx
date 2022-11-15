@@ -11,7 +11,7 @@ import SimpleBackdrop from './utilities/SimpleBackdrop';
 interface Props {
   readOnly: boolean;
 }
-
+// The code editor with the current exercise:
 export default function Editor(props: Props) {
   const socket = useContext<any>(socketContext);
   const [text, setText] = useState<string>('');

@@ -9,6 +9,7 @@ interface props {
   setOpenSession: Function;
 }
 
+// A component that displays a description of an exercise inside a card:
 export default function CodeCard({
   title,
   description,

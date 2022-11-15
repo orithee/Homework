@@ -11,13 +11,13 @@ import {
   getAllStudents,
   newSession,
 } from '../db/mongoose';
-
 const PORT = process.env.PORT;
 
+// Initialize the express server with all requests:
 function expressServer() {
   const server = express()
     .use(json())
-    .post('/signIn', async (req, res) => {
+    .post('/signIn', async (req: Request, res: Response) => {
       const data = await checkSignIn(req.body.name, req.body.password);
       if (data.success) {
         if (data.student && (await checkUuid(req.body.uuid, req.body.name))) {
@@ -26,21 +26,21 @@ function expressServer() {
         else res.send({ success: false, student: true });
       } else res.send({ success: false, student: false });
     })
-    .post('/new-session', async (req, res) => {
+    .post('/new-session', async (req: Request, res: Response) => {
       const uuid = await newSession(req.body.name, req.body.sessionId);
       res.cookie('session', uuid, { maxAge: 900000, httpOnly: true });
       let nodeEnv = 'https://';
       if (process.env.NODE_ENV !== 'production') nodeEnv = 'http://';
       res.send({ uuid: uuid, nodeEnv: nodeEnv });
     })
-    .put('/delete-session', async (req, res) => {
+    .put('/delete-session', async (req: Request, res: Response) => {
       const success = await deleteSession();
       res.send({ success: success });
     })
-    .get('/student_login/:uuid', (req, res) => {
+    .get('/student_login/:uuid', (req: Request, res: Response) => {
       res.sendFile('/index.html', { root: './dist' });
     })
-    .get('/code-block/:uuid', async (req, res) => {
+    .get('/code-block/:uuid', async (req: Request, res: Response) => {
       try {
         const obj = await getCurrentCodeBlock(req.params.uuid);
         res.send(obj);
@@ -61,15 +61,15 @@ function expressServer() {
         res.send({ access: false, uuid: '' });
       }
     })
-    .get('/code-cards', async (req, res) => {
+    .get('/code-cards', async (req: Request, res: Response) => {
       const data = await getAllCodeBlocks();
       res.send({ cards: data });
     })
-    .get('/students', async (req, res) => {
+    .get('/students', async (req: Request, res: Response) => {
       const data = await getAllStudents();
       res.send({ students: data });
     })
-    .use((req, res) => {
+    .use((req: Request, res: Response) => {
       try {
         res.sendFile(req.path || '/index.html', { root: './dist' });
       } catch (error) {

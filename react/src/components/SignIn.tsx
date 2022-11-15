@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux';
 import { ChangeCodeOpen, updateUserLogged } from '../redux/globalSlice';
 
 const theme = createTheme();
-
+// Login page component:
 export default function SignIn() {
   const { uuid } = useParams();
   const navigate = useNavigate();

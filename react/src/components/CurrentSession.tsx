@@ -23,6 +23,7 @@ const style = {
   p: 4,
 };
 
+// A window describing the current active session:
 export default function CurrentSession() {
   const links = useSelector((state: globalState) => state.global.sessionLinks);
   const [loader, setLoader] = useState(false);

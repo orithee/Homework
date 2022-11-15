@@ -69,6 +69,7 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
+// The main component:
 function DashboardContent() {
   const [open, setOpen] = React.useState(false);
   const user = useSelector((state: globalState) => state.global.user);

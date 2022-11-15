@@ -9,6 +9,7 @@ import OpenBlockCode from './utilities/OpenBlockCode';
 import BasicModal from './utilities/BasicModal';
 import CurrentSession from './CurrentSession';
 
+// A component that displays exercise cards:
 export default function CardsContainer() {
   const [cards, setCards] = useState<Cards[]>();
   const [openSession, setOpenSession] = useState<boolean | number>(false);

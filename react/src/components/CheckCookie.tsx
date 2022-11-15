@@ -5,6 +5,7 @@ import axios from 'axios';
 import { ChangeCodeOpen, updateUserLogged } from '../redux/globalSlice';
 import SimpleBackdrop from './utilities/SimpleBackdrop';
 
+// A component that checks the mentor's cookies before moving to the code editor:
 export default function CheckCookie() {
   const { mentor } = useParams();
   const [loader, setLoader] = useState(false);
