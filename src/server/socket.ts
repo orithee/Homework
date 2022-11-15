@@ -17,6 +17,7 @@ const PORT = process.env.PORT;
 function expressServer() {
   const server = express()
     .use(json())
+    // Post requests:
     .post('/signIn', async (req: Request, res: Response) => {
       const data = await checkSignIn(req.body.name, req.body.password);
       if (data.success) {
@@ -33,10 +34,12 @@ function expressServer() {
       if (process.env.NODE_ENV !== 'production') nodeEnv = 'http://';
       res.send({ uuid: uuid, nodeEnv: nodeEnv });
     })
+    // Put request:
     .put('/delete-session', async (req: Request, res: Response) => {
       const success = await deleteSession();
       res.send({ success: success });
     })
+    // Get requests:
     .get('/student_login/:uuid', (req: Request, res: Response) => {
       res.sendFile('/index.html', { root: './dist' });
     })
@@ -69,6 +72,7 @@ function expressServer() {
       const data = await getAllStudents();
       res.send({ students: data });
     })
+    // Default:
     .use((req: Request, res: Response) => {
       try {
         res.sendFile(req.path || '/index.html', { root: './dist' });
