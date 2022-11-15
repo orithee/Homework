@@ -1,4 +1,4 @@
-import { Button, Divider } from '@mui/material';
+import { Button, Divider, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
@@ -9,6 +9,9 @@ import { UpdateLinks } from '../redux/globalSlice';
 import { globalState } from '../redux/store';
 import SimpleBackdrop from './utilities/SimpleBackdrop';
 import Title from './utilities/Title';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Copy from './utilities/Copy';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -54,6 +57,7 @@ export default function CurrentSession() {
           <Title>Links to the current session:</Title>
           <Divider sx={{ margin: '2%' }} />
           <div>Student link:</div>
+          <Copy text={links.student} />
           <Link
             color="primary"
             onClick={() =>
@@ -65,6 +69,7 @@ export default function CurrentSession() {
           </Link>
           <Divider sx={{ margin: '2%' }} />
           <div>Mentor link:</div>
+          <Copy text={links.mentor} />
           <Link
             color="primary"
             onClick={() =>
@@ -74,6 +79,7 @@ export default function CurrentSession() {
           >
             {links.mentor}
           </Link>
+
           <Divider sx={{ margin: '2%' }} />
           <Button
             sx={{ marginTop: '2%' }}
