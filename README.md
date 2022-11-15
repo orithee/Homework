@@ -30,17 +30,32 @@ Password : 110984762
 
 Short review videos about the project:
 
+#
+
 User interface(2:27): <a href="https://youtu.be/UPEfUqqB-Pk" target="_blank">click here</a>
 
 Code structure(3:42): <a href="https://youtu.be/A9gnOBq70m8" target="_blank">click here</a>
 
 #
 
-Photos from the project:
+## Photos from the project:
 
 #
 
-instructions of the project:
+![Alt text](./readme_images/project1.png?raw=true 'Title')
+
+![Alt text](./readme_images/project2.png?raw=true 'Title')
+
+![Alt text](./readme_images/project3.png?raw=true 'Title')
+
+![Alt text](./readme_images/project4.png?raw=true 'Title')
+
+#
+
+## instructions of the project:
+
+#
+
 ![Alt text](./readme_images/instructions1.png?raw=true 'Title')
 
 ![Alt text](./readme_images/instructions2.png?raw=true 'Title')
