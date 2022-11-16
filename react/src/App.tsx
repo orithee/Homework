@@ -1,17 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
-import style from './App.module.scss';
 import Dashboard from './components/Dashboard';
 import socketConnection from './helpers/SocketIO';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import CheckCookie from './components/CheckCookie';
+import { SocketClientType } from './helpers/types';
 
 const connection = socketConnection();
-export const socketContext = React.createContext<any>(connection);
+export const socketContext = React.createContext<SocketClientType>(connection);
 
 function App() {
-  const [socket, setSocket] = useState<any>(connection);
+  const [socket, setSocket] = useState<SocketClientType>(connection);
 
   socket.on('disconnect', () => {
     setSocket(socketConnection());

@@ -1,6 +1,7 @@
 //   let socket = io('http://localhost:3000/');
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
+import { SocketClientType } from './types';
 export default function socketConnection() {
-  let socket = io();
+  let socket: SocketClientType = io();
   return socket;
 }

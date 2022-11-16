@@ -1,3 +1,5 @@
+import { Socket } from 'socket.io-client';
+
 export type signInForm = {
   name: FormDataEntryValue | null;
   password: FormDataEntryValue | null;
@@ -37,5 +39,14 @@ export interface Cards {
   code: string;
   id: number;
 }
+export type SocketClientType = Socket<
+  ServerToClientEvents,
+  ClientToServerEvents
+>;
+export interface ServerToClientEvents {
+  code_change_to_client: (msg: string) => void;
+}
 
-// export type socket = Socket<DefaultEventsMap, DefaultEventsMap>;
+export interface ClientToServerEvents {
+  code_change_from_client: (msg: string) => void;
+}

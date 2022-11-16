@@ -7,13 +7,14 @@ import { globalState } from '../redux/store';
 import axios from 'axios';
 import Smile from './utilities/Smile';
 import SimpleBackdrop from './utilities/SimpleBackdrop';
+import { SocketClientType } from '../helpers/types';
 
 interface Props {
   readOnly: boolean;
 }
 // The code editor with the current exercise:
 export default function Editor(props: Props) {
-  const socket = useContext<any>(socketContext);
+  const socket = useContext<SocketClientType>(socketContext);
   const [text, setText] = useState<string>('');
   const [solution, setSolution] = useState<string>('');
   const [success, setSuccess] = useState<boolean>(false);
@@ -22,13 +23,13 @@ export default function Editor(props: Props) {
   const codeOpen = useSelector((state: globalState) => state.global.codeOpen);
 
   if (props.readOnly) {
-    socket.on('code change', function (msg: any) {
+    socket.on('code_change_to_client', function (msg) {
       setText(msg);
     });
   }
 
   useEffect(() => {
-    if (!props.readOnly) socket.emit('code change', text);
+    if (!props.readOnly) socket.emit('code_change_from_client', text);
     if (text && text === solution) {
       setText(text + '\n\n\n\n Well done !!!!');
       setSuccess(true);

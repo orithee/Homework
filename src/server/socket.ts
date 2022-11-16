@@ -11,6 +11,7 @@ import {
   getAllStudents,
   newSession,
 } from '../db/mongoose';
+import { ClientToServerEvents, ServerToClientEvents } from './types';
 const PORT = process.env.PORT;
 
 // Initialize the express server with all requests:
@@ -86,11 +87,12 @@ function expressServer() {
 }
 
 export default function socketServer() {
-  const io = new Server(expressServer());
-  io.on('connection', (socket: any) => {
-    socket.on('code change', (msg: any) => {
-      // console.log('code change from the student:..... ');
-      io.emit('code change', msg);
+  const io = new Server<ClientToServerEvents, ServerToClientEvents>(
+    expressServer()
+  );
+  io.on('connection', (socket) => {
+    socket.on('code_change_from_client', (msg) => {
+      io.emit('code_change_to_client', msg);
     });
     socket.on('disconnect', () => console.log('Client disconnected'));
   });
