@@ -64,6 +64,8 @@ gulp.task('heroku-clean', () => {
         './deploy/package.json',
         './deploy/package-lock.json',
         './deploy/tsconfig.tsbuildinfo',
+        './deploy/*',
+        '!deploy/.git',
       ],
       { allowEmpty: true }
     )

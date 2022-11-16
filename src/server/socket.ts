@@ -12,6 +12,8 @@ import {
   newSession,
 } from '../db/mongoose';
 import { ClientToServerEvents, ServerToClientEvents } from './types';
+import path from 'path';
+
 const PORT = process.env.PORT;
 
 // Initialize the express server with all requests:
@@ -65,23 +67,20 @@ function expressServer() {
       res.send({ access: false, uuid: '' });
     }
   });
-  app;
+
   app.get('/code-cards', async (req: Request, res: Response) => {
     const data = await getAllCodeBlocks();
     res.send({ cards: data });
   });
+
   app.get('/students', async (req: Request, res: Response) => {
     const data = await getAllStudents();
     res.send({ students: data });
   });
   // Default:
-  app.use((req: Request, res: Response) => {
-    try {
-      res.sendFile(req.path || '/index.html', { root: './dist' });
-    } catch (error) {
-      console.log('no such file');
-      console.log(req.path);
-    }
+  app.use(express.static(path.join(__dirname, '../..', 'dist')));
+  app.get('*', (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, '../..', 'dist/index.html'));
   });
   const server = app.listen(PORT, () => console.log(`http://localhost:4000`));
   return server;

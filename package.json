@@ -2,7 +2,8 @@
   "name": "moveo-project",
   "scripts": {
     "start": "nodemon --watch ./src ./src/server/server.ts",
-    "deploy": "npx tsc && npm run build-react && gulp deploy && npm run heroku",
+    "deploy": "bash build.sh",
+    "deploy1": "npx tsc && npm run build-react && gulp deploy && npm run heroku",
     "build-react": "cd ./react && npm run build && cd ..",
     "heroku": "cd ./deploy && git add -A && git commit -m 'update' && git push heroku master && cd ..",
     "jest": "jest"

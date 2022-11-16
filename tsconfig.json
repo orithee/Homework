@@ -6,7 +6,7 @@
     "lib": ["es2020", "DOM"],
     "baseUrl": "./",
     "rootDir": "./src",
-    "outDir": "./deploy/dist",
+    "outDir": "./deploy/server",
     "noUnusedLocals": false,
     "sourceMap": false,
     "noUnusedParameters": false,
