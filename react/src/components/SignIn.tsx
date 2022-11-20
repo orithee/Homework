@@ -16,8 +16,8 @@ import SimpleBackdrop from './utilities/SimpleBackdrop';
 import { signInForm } from '../helpers/types';
 import { useDispatch } from 'react-redux';
 import { ChangeCodeOpen, updateUserLogged } from '../redux/globalSlice';
+import { Theme } from '../helpers/style';
 
-const theme = createTheme();
 // Login page component:
 export default function SignIn() {
   const { uuid } = useParams();
@@ -63,7 +63,7 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={Theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

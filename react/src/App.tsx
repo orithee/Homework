@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Dashboard from './components/Dashboard';
-import socketConnection from './helpers/SocketIO';
+import socketConnection from './helpers/socketClient';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import CheckCookie from './components/CheckCookie';

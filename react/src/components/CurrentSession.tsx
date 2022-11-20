@@ -1,30 +1,16 @@
-import { Button, Divider, IconButton } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { UpdateLinks } from '../redux/globalSlice';
 import { globalState } from '../redux/store';
 import SimpleBackdrop from './utilities/SimpleBackdrop';
 import Title from './utilities/Title';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Copy from './utilities/Copy';
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 'auto',
-  height: 'auto',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+import { style } from '../helpers/style';
 
 // A window describing the current active session:
 export default function CurrentSession() {
