@@ -12,8 +12,8 @@ import { globalState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import CardsContainer from './CardsContainer';
-import { Divider, List } from '@mui/material';
-import { mainListItems } from './utilities/MainListItems';
+import { Container, Divider, List } from '@mui/material';
+import { MainListItems } from './utilities/MainListItems';
 import { AppBar, Drawer, Theme } from '../helpers/style';
 import { Outlet } from 'react-router-dom';
 
@@ -94,10 +94,30 @@ function DashboardContent() {
               </IconButton>
             </Toolbar>
             <Divider />
-            <List component="nav">{mainListItems}</List>
+            <List component="nav">
+              {' '}
+              <MainListItems />
+            </List>
           </Drawer>
         )}
-        <CardsContainer />
+        {/* <CardsContainer /> */}
+        <Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            flexGrow: 1,
+            height: '100vh',
+            overflow: 'auto',
+          }}
+        >
+          <Toolbar />
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Outlet />
+          </Container>
+        </Box>
       </Box>
     </ThemeProvider>
   );

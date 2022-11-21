@@ -63,7 +63,7 @@ export async function getAllCodeBlocks() {
 // Pulling all students:
 export async function getAllStudents() {
   try {
-    const students = await StudentsModel.find({}, 'name -_id');
+    const students = await StudentsModel.find({}, 'name password -_id');
     return students;
   } catch (error) {
     console.log(error);

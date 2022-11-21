@@ -5,6 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { StudentsType } from '../helpers/types';
 import { UpdateLinks } from '../redux/globalSlice';
 
 interface Props {
@@ -14,7 +15,7 @@ interface Props {
 
 // A component that displays the students list:
 export default function StudentsList({ sessionId, setOpenSession }: Props) {
-  const [students, setStudents] = useState<{ name: string }[]>();
+  const [students, setStudents] = useState<StudentsType[]>();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function StudentsList({ sessionId, setOpenSession }: Props) {
   const fetchStudents = async () => {
     const res = await axios.get('/students');
     if (res.data) {
+      console.log(res.data);
       setStudents(res.data.students);
     }
   };

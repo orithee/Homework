@@ -50,3 +50,4 @@ export interface ServerToClientEvents {
 export interface ClientToServerEvents {
   code_change_from_client: (msg: string) => void;
 }
+export type StudentsType = { name: string; password: number };

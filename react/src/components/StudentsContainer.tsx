@@ -2,44 +2,37 @@ import { Grid } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Cards } from '../helpers/types';
+import { StudentsType } from '../helpers/types';
 import { globalState } from '../redux/store';
-import CodeCard from './CodeCard';
 import BasicModal from './utilities/BasicModal';
 import CurrentSession from './CurrentSession';
+import StudentCard from './StudentCard';
 
-// A component that displays exercise cards:
-export default function CardsContainer() {
-  const [cards, setCards] = useState<Cards[]>();
+// A component that displays students details:
+export default function StudentsContainer() {
   const [openSession, setOpenSession] = useState<boolean | number>(false);
   const codeOpen = useSelector((state: globalState) => state.global.codeOpen);
   const links = useSelector((state: globalState) => state.global.sessionLinks);
+  const [students, setStudents] = useState<StudentsType[]>([]);
 
   useEffect(() => {
-    fetchCodeCards();
+    fetchStudents();
   }, []);
 
-  const fetchCodeCards = async () => {
-    const res = await axios.get('/code-cards');
+  const fetchStudents = async () => {
+    const res = await axios.get('/students');
     if (res.data) {
-      setCards(res.data.cards);
+      console.log(res.data);
+      setStudents(res.data.students);
     }
   };
 
   return (
     <>
       <Grid container spacing={5}>
-        {cards &&
-          cards.map((card, index) => {
-            return (
-              <CodeCard
-                key={index}
-                title={card.title}
-                description={card.description}
-                blockId={card.id}
-                setOpenSession={setOpenSession}
-              />
-            );
+        {students &&
+          students.map((student, index) => {
+            return <StudentCard student={student} />;
           })}
       </Grid>
       {typeof openSession === 'number' && (
