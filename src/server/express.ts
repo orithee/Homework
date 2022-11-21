@@ -55,7 +55,7 @@ export default function expressServer() {
   });
 
   // Post requests:
-  app.post('/signIn', async (req: Request, res: Response) => {
+  app.post('/sign-in', async (req: Request, res: Response) => {
     const data = await checkSignIn(req.body.name, req.body.password);
     if (data.success) {
       if (data.student && (await checkUuid(req.body.uuid, req.body.name))) {

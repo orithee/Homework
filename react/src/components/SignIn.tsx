@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
@@ -40,20 +40,25 @@ export default function SignIn() {
 
   const checkSignIn = async (formData: signInForm) => {
     try {
-      const res = await axios.post('/signIn', formData);
+      const res = await axios.post('/sign-in', formData);
       if (res.data && res.data.success) {
         const user = {
           isStudent: res.data.student,
           name: formData.name,
         };
         if (!res.data.student && !uuid) {
+          // Mentor:
           dispatch(updateUserLogged(user));
           navigate('/Dashboard');
         } else if (res.data.student) {
+          // Student:
           dispatch(updateUserLogged(user));
           dispatch(ChangeCodeOpen(uuid || ''));
           navigate('/CodeEditor');
-        } else setError(true);
+        } else {
+          // The mentor tries to enter from the student's entrance:
+          setError(true);
+        }
       } else setError(true);
       setBackdrop(false);
     } catch (error) {

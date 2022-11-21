@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -17,34 +15,36 @@ import CardsContainer from './CardsContainer';
 import { Divider, List } from '@mui/material';
 import { mainListItems } from './utilities/MainListItems';
 import { AppBar, Drawer, Theme } from '../helpers/style';
+import { Outlet } from 'react-router-dom';
 
 // The main component:
 function DashboardContent() {
-  const [open, setOpen] = React.useState(false);
+  const [barOpen, setBarOpen] = React.useState(false);
   const user = useSelector((state: globalState) => state.global.user);
-  const codeOpen = useSelector((state: globalState) => state.global.codeOpen);
+  const codeBlock = useSelector((state: globalState) => state.global.codeOpen);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user === undefined) navigate('/');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <ThemeProvider theme={Theme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar position="absolute" open={barOpen}>
           <Toolbar sx={{ pr: '24px' }}>
-            {!codeOpen && (
+            {!codeBlock && (
               <IconButton
                 edge="start"
                 color="inherit"
                 aria-label="open drawer"
-                onClick={() => setOpen(!open)}
+                onClick={() => setBarOpen(!barOpen)}
                 sx={{
                   marginRight: '36px',
-                  ...(open && { display: 'none' }),
+                  ...(barOpen && { display: 'none' }),
                 }}
               >
                 <MenuIcon />
@@ -69,7 +69,7 @@ function DashboardContent() {
               >
                 {user.isStudent && 'Code Block'}
                 {!user.isStudent &&
-                  (!codeOpen ? 'Choose code block:' : 'Code Block')}
+                  (!codeBlock ? 'Choose code block:' : 'Code Block')}
               </Typography>
             )}
             <Typography component="h1" variant="h6" color="inherit">
@@ -79,8 +79,8 @@ function DashboardContent() {
             </Typography>
           </Toolbar>
         </AppBar>
-        {!codeOpen && (
-          <Drawer variant="permanent" open={open}>
+        {!codeBlock && (
+          <Drawer variant="permanent" open={barOpen}>
             <Toolbar
               sx={{
                 display: 'flex',
@@ -89,7 +89,7 @@ function DashboardContent() {
                 px: [1],
               }}
             >
-              <IconButton onClick={() => setOpen(!open)}>
+              <IconButton onClick={() => setBarOpen(!barOpen)}>
                 <ChevronLeftIcon />
               </IconButton>
             </Toolbar>
