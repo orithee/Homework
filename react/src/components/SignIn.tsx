@@ -15,7 +15,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import SimpleBackdrop from './utilities/SimpleBackdrop';
 import { signInForm } from '../helpers/types';
 import { useDispatch } from 'react-redux';
-import { ChangeCodeOpen, updateUserLogged } from '../redux/globalSlice';
+import { ChangeCodeOpen, UpdateUserLogged } from '../redux/globalSlice';
 import { Theme } from '../helpers/style';
 
 // Login page component:
@@ -48,11 +48,11 @@ export default function SignIn() {
         };
         if (!res.data.student && !uuid) {
           // Mentor:
-          dispatch(updateUserLogged(user));
+          dispatch(UpdateUserLogged(user));
           navigate('/Dashboard');
         } else if (res.data.student) {
           // Student:
-          dispatch(updateUserLogged(user));
+          dispatch(UpdateUserLogged(user));
           dispatch(ChangeCodeOpen(uuid || ''));
           navigate('/CodeEditor');
         } else {

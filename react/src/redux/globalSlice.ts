@@ -25,7 +25,7 @@ export const globalSlice = createSlice({
   initialState,
   reducers: {
     // Update the user connected:
-    updateUserLogged: (state, action: updateUserLoggedAction) => {
+    UpdateUserLogged: (state, action: updateUserLoggedAction) => {
       state.user = action.payload;
     },
 
@@ -41,7 +41,7 @@ export const globalSlice = createSlice({
   },
 });
 
-export const { updateUserLogged, ChangeCodeOpen, UpdateLinks } =
+export const { UpdateUserLogged, ChangeCodeOpen, UpdateLinks } =
   globalSlice.actions;
 
 export default globalSlice.reducer;

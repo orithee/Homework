@@ -2,7 +2,7 @@ import { Grid, Link, Paper } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Title from './utilities/Title';
 
-interface props {
+interface Props {
   title: string;
   description: string;
   blockId: number;
@@ -10,12 +10,7 @@ interface props {
 }
 
 // A component that displays a description of an exercise inside a card:
-export default function CodeCard({
-  title,
-  description,
-  blockId,
-  setOpenSession,
-}: props) {
+export default function CodeCard(props: Props) {
   return (
     <>
       <Grid item xs={12} md={8} lg={4}>
@@ -27,13 +22,13 @@ export default function CodeCard({
             height: 'auto',
           }}
         >
-          <Title>{title}</Title>
+          <Title>{props.title}</Title>
           <Typography component="p" variant="h6" sx={{ flex: 1 }}>
-            {description}
+            {props.description}
           </Typography>
           <Link
             color="primary"
-            onClick={() => setOpenSession(blockId)}
+            onClick={() => props.setOpenSession(props.blockId)}
             sx={{ mt: 3, cursor: 'pointer' }}
           >
             Create a session

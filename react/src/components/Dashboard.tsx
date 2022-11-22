@@ -15,7 +15,6 @@ import CardsContainer from './CardsContainer';
 import { Divider, List } from '@mui/material';
 import { mainListItems } from './utilities/MainListItems';
 import { AppBar, Drawer, Theme } from '../helpers/style';
-import { Outlet } from 'react-router-dom';
 
 // The main component:
 function DashboardContent() {

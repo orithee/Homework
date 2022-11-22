@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Paper, Toolbar } from '@mui/material';
+import { Box, Container, Grid, Toolbar } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -32,10 +32,6 @@ export default function CardsContainer() {
       <Box
         component="main"
         sx={{
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.grey[100]
-              : theme.palette.grey[900],
           flexGrow: 1,
           height: '100vh',
           overflow: 'auto',

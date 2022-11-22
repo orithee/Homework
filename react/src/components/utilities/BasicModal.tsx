@@ -1,18 +1,7 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import StudentsList from '../StudentsList';
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+import { style } from '../../helpers/style';
 
 interface Props {
   sessionId: number;
@@ -22,12 +11,7 @@ interface Props {
 export default function BasicModal({ sessionId, setOpenSession }: Props) {
   return (
     <div>
-      <Modal
-        open={true}
-        onClose={() => setOpenSession(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={true} onClose={() => setOpenSession(false)}>
         <Box sx={style}>
           <StudentsList setOpenSession={setOpenSession} sessionId={sessionId} />
         </Box>

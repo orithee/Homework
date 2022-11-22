@@ -44,7 +44,6 @@ export default function Editor(props: Props) {
   const getCurrentBlock = async () => {
     const res = await axios.get('/code-block/' + codeOpen);
     if (res.data) {
-      console.log(res.data);
       setText(res.data.code || '---');
       setSolution(res.data.solution || '---');
       setLoader(false);

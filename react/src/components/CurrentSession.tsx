@@ -32,12 +32,7 @@ export default function CurrentSession() {
 
   return (
     <div>
-      <Modal
-        open={true}
-        onClose={() => console.log(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={true}>
         <Box sx={style}>
           {loader && <SimpleBackdrop />}
           <Title>Links to the current session:</Title>
