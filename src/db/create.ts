@@ -1,12 +1,6 @@
-import mongoose from 'mongoose';
-import {
-  CodeBlockModel,
-  MentorModel,
-  SessionModel,
-  StudentsModel,
-} from './models';
-
-export async function createCodeBlock() {
+import { CodeBlockModel, StudentsModel } from './models';
+// functions for future use. Currently not in use:
+export async function createCodeBlocks() {
   await new CodeBlockModel({
     title: 'Async functions',
     description: 'An exercise that helps to understand the value of "await"',
@@ -101,7 +95,7 @@ export async function createCodeBlock() {
   console.log(codeBlock);
 }
 
-export async function createStudent() {
+export async function createStudents() {
   await new StudentsModel({
     name: 'Ron',
     password: '229837422',
@@ -114,28 +108,4 @@ export async function createStudent() {
 
   const codeBlock = await StudentsModel.find();
   console.log(codeBlock);
-}
-export async function mongooseInit() {
-  const MentorSchema = new mongoose.Schema({
-    name: String,
-    password: String,
-  });
-
-  const MentorModel = mongoose.model('mentors', MentorSchema);
-  await new MentorModel({ name: 'Tom', password: '339827231' }).save();
-
-  const mentors = await MentorModel.find();
-
-  const StudentsSchema = new mongoose.Schema({
-    name: String,
-    password: String,
-  });
-
-  const StudentsModel = mongoose.model('students', StudentsSchema);
-  await new StudentsModel({ name: 'Josh', password: '119836532' }).save();
-
-  const students = await StudentsModel.find();
-
-  console.log(students[0]);
-  console.log(mentors[0]);
 }

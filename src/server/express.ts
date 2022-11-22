@@ -22,28 +22,16 @@ export default function expressServer() {
     res.sendFile('/index.html', { root: './dist' });
   });
 
-  app.get('/code-block/:uuid', async (req: Request, res: Response) => {
-    try {
-      const obj = await getCurrentCodeBlock(req.params.uuid);
-      res.send(obj);
-    } catch (error) {
-      console.log('/code-block/:uuid', error);
-      res.send({});
-    }
-  });
-
-  app.get('/access/mentor', cookieParser(), async (req, res) => {
+  app.get('/access/mentor', async (req: Request, res: Response) => {
     res.sendFile('/index.html', { root: './dist' });
   });
 
-  app.get('/mentor-access', cookieParser(), async (req, res) => {
-    try {
-      const access = await checkMentorCookie(req.cookies['session']);
-      res.send({ access: access, uuid: req.cookies['session'] });
-    } catch (error) {
-      console.log('/mentor-access', error);
-      res.send({ access: false, uuid: '' });
-    }
+  app.get('/code-block/:uuid', async (req: Request, res: Response) => {
+    res.send(await getCurrentCodeBlock(req.params.uuid));
+  });
+
+  app.get('/check-mentor-cookie', cookieParser(), async (req, res) => {
+    res.send(await checkMentorCookie(req.cookies['session']));
   });
 
   app.get('/code-cards', async (req: Request, res: Response) => {
@@ -67,9 +55,9 @@ export default function expressServer() {
 
   app.post('/new-session', async (req: Request, res: Response) => {
     const uuid = await newSession(req.body.name, req.body.sessionId);
-    res.cookie('session', uuid, { maxAge: 900000, httpOnly: true });
     let nodeEnv = 'https://';
     if (process.env.NODE_ENV !== 'production') nodeEnv = 'http://';
+    res.cookie('session', uuid, { maxAge: 900000, httpOnly: true });
     res.send({ uuid: uuid, nodeEnv: nodeEnv });
   });
 

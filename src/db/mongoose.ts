@@ -101,10 +101,10 @@ export async function checkUuid(uuid: string, name: string) {
 export async function checkMentorCookie(uuid: string) {
   try {
     const ans = await SessionModel.findOne({ uuid: uuid });
-    if (ans && ans.uuid) return true;
-    else return false;
+    if (ans && ans.uuid) return { access: true, uuid: uuid };
+    else return { access: false, uuid: '' };
   } catch (error) {
-    return false;
+    return { access: false, uuid: '' };
   }
 }
 

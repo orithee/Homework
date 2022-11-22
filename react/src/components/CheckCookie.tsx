@@ -13,7 +13,9 @@ export default function CheckCookie() {
   const navigate = useNavigate();
 
   const checkMentorCookie = async () => {
-    const res = await axios.get('/mentor-access', { withCredentials: true });
+    const res = await axios.get('/check-mentor-cookie', {
+      withCredentials: true,
+    });
     if (res.data && res.data.access) {
       const update = { isStudent: false, name: 'Tom' };
       dispatch(UpdateUserLogged(update));
