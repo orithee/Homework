@@ -34,11 +34,13 @@ export default function Editor(props: Props) {
       setText(text + '\n\n\n\n Well done !!!!');
       setSuccess(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
   useEffect(() => {
     setLoader(true);
     getCurrentBlock();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getCurrentBlock = async () => {

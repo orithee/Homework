@@ -28,6 +28,7 @@ export default function CheckCookie() {
       setLoader(true);
       checkMentorCookie();
     } else navigate('/');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <>{loader && <SimpleBackdrop />}</>;
